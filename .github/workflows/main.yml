@@ -1,0 +1,76 @@
+name: CI/CD Pipeline HTML
+
+# Dispara o workflow em pushes para a branch main ou manualmente
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Permissões necessárias para publicar no GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Previne que múltiplos deploys concorrentes conflitem entre si
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # 1. Linter / Static Analysis
+  lint:
+    name: Linter & Verificação de Sintaxe
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js (necessário para rodar o linter)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Executar HTMLHint
+        # O HTMLHint fará uma análise estática buscando erros de sintaxe no seu HTML
+        run: npx htmlhint "./**/*.html"
+
+  # 2. Build / Empacotamento
+  build:
+    name: Build & Validação
+    runs-on: ubuntu-latest
+    needs: lint # Só executa se o lint passar
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Validar existência dos arquivos base
+        run: |
+          if [ ! -f ./index.html ]; then
+            echo "Erro: O arquivo index.html não foi encontrado na raiz!"
+            exit 1
+          fi
+          echo "Build validado: index.html encontrado com sucesso."
+
+      - name: Configurar o GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload do artefato para o Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Define o diretório atual como a fonte do site a ser publicado
+          path: '.' 
+
+  # 3. Deploy
+  deploy:
+    name: Deploy no GitHub Pages
+    runs-on: ubuntu-latest
+    needs: build # Só executa se o build/upload passar
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
