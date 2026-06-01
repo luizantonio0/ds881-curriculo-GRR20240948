@@ -111,6 +111,10 @@
                 }
             }
         }
+
+        let footerText = document.getElementById("footer-text");
+        const currentYear = new Date().getFullYear();
+        footerText.textContent = `© ${currentYear} Luiz Antonio. Built with HTML and Tailwind CSS.`;
     </script>
     <style>
         body {
@@ -146,7 +150,7 @@
         <div class="flex justify-between items-center h-16 px-gutter max-w-container-max mx-auto z-50">
             <div
                 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary transition-all duration-200 active:scale-95">
-                ARCHITECT.DEV
+                Luiz Antonio
             </div>
             <div class="hidden md:flex items-center gap-stack-lg font-label-md text-label-md">
                 <a class="text-primary font-bold border-b-2 border-primary pb-1 transition-all duration-200 active:scale-95"
@@ -435,7 +439,7 @@
         <div
             class="flex flex-col md:flex-row justify-between items-center py-stack-lg px-gutter max-w-container-max mx-auto">
             <div class="text-label-md font-label-md font-black text-on-surface mb-4 md:mb-0">
-                ARCHITECT.DEV
+                Luiz Antonio
             </div>
             <div class="flex gap-stack-md font-body-md text-body-md mb-4 md:mb-0">
                 <a class="text-on-surface-variant hover:text-primary transition-colors transition-opacity duration-200 hover:opacity-80"
@@ -447,8 +451,7 @@
                 <a class="text-on-surface-variant hover:text-primary transition-colors transition-opacity duration-200 hover:opacity-80"
                     href="#">Email</a>
             </div>
-            <div class="font-body-md text-body-md text-on-surface-variant">
-                © 2024 Architect Portfolio. Built with .NET &amp; Tailwind.
+            <div class="font-body-md text-body-md text-on-surface-variant" id="footer-text">
             </div>
         </div>
     </footer>
