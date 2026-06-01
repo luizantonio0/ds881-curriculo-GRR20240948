@@ -1,0 +1,11 @@
+*.png
+*.md
+.github
+.gitignore
+LICENSE
+.git
+.vscode
+.dockerignore
+.vite/
+node_modules/
+docs/
