@@ -409,16 +409,19 @@
                 consultoria.
             </p>
             <div class="glass-panel p-stack-lg rounded-xl text-left hover-purple-border transition-all duration-300">
-                <form class="space-y-stack-md">
+                <form class="space-y-stack-md" action="https://formspree.io/f/xvzyegjp" method="POST">
                     <div>
                         <label class="block font-label-md text-label-md text-on-surface mb-unit">Email</label>
                         <input
+                            id="form-email"
                             class="w-full bg-surface-container-lowest border border-outline-variant rounded p-3 text-on-surface font-body-md text-body-md focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors outline-none"
-                            placeholder="seu@email.com" type="email" />
+                            placeholder="seu@email.com" name="email" type="email" />
                     </div>
                     <div>
                         <label class="block font-label-md text-label-md text-on-surface mb-unit">Mensagem</label>
-                        <textarea
+                        <textarea 
+                            id="form-message"
+                            name="message"
                             class="w-full bg-surface-container-lowest border border-outline-variant rounded p-3 text-on-surface font-body-md text-body-md focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors outline-none resize-none"
                             placeholder="Como posso ajudar?" rows="4"></textarea>
                     </div>
